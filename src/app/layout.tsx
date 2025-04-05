@@ -32,10 +32,12 @@ export default function RootLayout({
       >
         <div className="min-h-screen bg-gray-900 text-white px-4 py-6">
           <MediaProvider>
-            {children}
-            <MediaControls />
-            <FloatingYoutube />
-          </MediaProvider>
+            <div className="h-[calc(100vh-0rem)] overflow-y-auto">
+              {children}
+            </div>
+          <MediaControls />
+          <FloatingYoutube />
+        </MediaProvider>
         </div>
       </body>
     </html>
