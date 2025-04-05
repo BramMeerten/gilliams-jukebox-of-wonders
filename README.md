@@ -8,7 +8,7 @@
 * [ ] Check responsive design
 * [x] Key errors
 * [ ] Linting & styling
-* [ ] Keyboard shortcuts
+* [x] Keyboard shortcuts
 * [ ] Delete music
 * [ ] Delete category
 * [ ] Add category
