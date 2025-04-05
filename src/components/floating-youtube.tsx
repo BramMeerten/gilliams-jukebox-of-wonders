@@ -1,41 +1,51 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import styles from './floating-youtube.module.css';
-import { useMedia } from './media-context';
 import YouTube, { YouTubeEvent, YouTubePlayer } from 'react-youtube';
+import styles from './floating-youtube.module.css';
+import { MediaState, useMedia } from './media-context';
 
 export const FloatingYoutube = () => {
   const {state} = useMedia();
-  const [player, setPlayer] = useState<YouTubePlayer | null>(null);
-
-  const videoId = "ddMSMwKQkKI";
-  const id = "2dc7GWDIE1pHgoc4";
+  const [player, setPlayer] = useState<YouTubePlayer | undefined>();
+  const [playerState, setPlayerState] = useState<MediaState>({playing: false});
 
   useEffect(() => {
-    if (state.playSignal) {
-      player?.playVideo();
-    } else {
-      player?.pauseVideo();
+    if (state.source !== playerState.source) {
+      setPlayer(null);
+      setPlayerState(playerState => ({...playerState, source: state.source, playing: true}));
+    } else if (state.playing !== playerState.playing) {
+      if (player) {
+        try {
+          if (state.playing) {
+            player.playVideo();
+          } else {
+            player.pauseVideo();
+          }
+          setPlayerState(playerState => ({...playerState, playing: state.playing}));
+        } catch(e: any) {
+          // Player not ready
+        }
+      }
     }
-  }, [state.playSignal]);
+  }, [state, playerState, player]);
 
   const onReady = (event: YouTubeEvent) => {
     setPlayer(event.target);
   };
 
   return (<div className={styles.floatingYoutube}>
-          <YouTube 
+          {playerState.source && <YouTube 
               className={styles.floatingYoutubeIframe}
               iframeClassName={styles.floatingYoutubeIframe}
-              videoId={videoId}
-              id={id}
+              videoId={playerState.source.videoId}
               opts={{
                 playerVars: {
-                  autoplay: true,
+                  autoplay: 1,
+                  loop: 1,
                 }
               }}
               onReady={onReady}
-            />
+            />}
   </div>);
 }

@@ -30,11 +30,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <MediaProvider>
-          {children}
-          <MediaControls />
-          <FloatingYoutube />
-        </MediaProvider>
+        <div className="min-h-screen bg-gray-900 text-white px-4 py-6">
+          <MediaProvider>
+            {children}
+            <MediaControls />
+            <FloatingYoutube />
+          </MediaProvider>
+        </div>
       </body>
     </html>
   );

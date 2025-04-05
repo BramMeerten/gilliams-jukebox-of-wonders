@@ -1,10 +1,9 @@
 .mediaControlsContainer {
-  width: 50rem;
+  width: 25rem;
   height: 5rem;
 
   position: absolute;
   left: 50%;
   bottom: 5rem;
   transform: translate(-50%, 0);
-  background-color: red;
 }
