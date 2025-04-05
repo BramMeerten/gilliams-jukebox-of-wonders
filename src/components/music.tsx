@@ -1,6 +1,6 @@
 export interface Music {
   title: string;
+  subtitle?: string;
   videoId: string;
-  sid: string;
   image: string;
 }

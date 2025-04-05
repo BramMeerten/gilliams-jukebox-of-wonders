@@ -1,16 +1,20 @@
-import { CSSProperties } from "react";
 import { Music } from "./music";
 import { MusicTile } from "./music-tile";
 
-export const MusicTileRow = (props: {tiles: Music[], style: CSSProperties | undefined}) => {
+export const MusicTileRow = (props: {tiles: Music[], name: string}) => {
   return (
-    <div className="relative overflow-x-auto whitespace-nowrap px-4 py-2" style={props.style}>
-        <div className="flex flex-nowrap gap-4 px-4 py-2">
+    <div className="flex" style={{width: '1000px'}}>
+      <div className="uppercase text-xl font-semibold text-center" style={{writingMode: 'sideways-lr'}}>
+        {props.name}
+      </div>
+      <div className="relative overflow-x-auto whitespace-nowrap py-2 ml-4">
+        <div className="flex flex-nowrap py-2">
             {props.tiles.map(tile => (
-                <div className="flex-shrink-0">
+                <div className="flex-shrink-0 ml-4 first:ml-0">
                     <MusicTile key={tile.title} music={tile} />
                 </div>
             ))}
         </div>
+      </div>
     </div>);
 }
