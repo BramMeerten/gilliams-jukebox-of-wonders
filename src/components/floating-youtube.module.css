@@ -1,0 +1,14 @@
+.floatingYoutube {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 355px;
+  height: 200px;
+  background-color: green;
+}
+
+.floatingYoutubeIframe {
+  border: 0px;
+  width: 100%;
+  height: 100%;
+}
