@@ -8,21 +8,33 @@ import { MediaState, useMedia } from './media-context';
 export const FloatingYoutube = () => {
   const {state} = useMedia();
   const [player, setPlayer] = useState<YouTubePlayer | undefined>();
-  const [playerState, setPlayerState] = useState<MediaState>({playing: false});
+  const [playerState, setPlayerState] = useState<MediaState>({playing: false, volume: 100});
 
   useEffect(() => {
     if (state.source !== playerState.source) {
       setPlayer(null);
       setPlayerState(playerState => ({...playerState, source: state.source, playing: true}));
-    } else if (state.playing !== playerState.playing) {
+    } else {
       if (player) {
         try {
-          if (state.playing) {
-            player.playVideo();
-          } else {
-            player.pauseVideo();
+          let changed = false;
+          if (state.playing !== playerState.playing) {
+            changed = true;
+            if (state.playing) {
+              player.playVideo();
+            } else {
+              player.pauseVideo();
+            }
           }
-          setPlayerState(playerState => ({...playerState, playing: state.playing}));
+
+          if (state.volume !== playerState.volume) {
+            changed = true;
+            player.setVolume(state.volume);
+          }
+
+          if (changed) {
+            setPlayerState(playerState => ({...playerState, playing: state.playing, volume: state.volume}));
+          }
         } catch(e: any) {
           // Player not ready
         }

@@ -8,10 +8,6 @@ export const MediaControls = () => {
 
   const {state, dispatch} = useMedia();
 
-  /*return <div className={styles.mediaControlsContainer}>
-    <input type="button" value="Play" onClick={() => dispatch({type: MediaEventType.PLAY})} />
-    <input type="button" value="Pause" onClick={() => dispatch({type: MediaEventType.PAUSE})} />
-  </div>;*/
   return (
     <div className={styles.mediaControlsContainer + " bg-gray-800 backdrop-blur-md shadow-2xl rounded-2xl p-4 flex items-center justify-center gap-4 z-50"}>
       <button
@@ -26,10 +22,10 @@ export const MediaControls = () => {
         <input
           type="range"
           min="0"
-          max="1"
-          step="0.01"
-          value={0.5}
-          onChange={() => {}}
+          max="100"
+          step="1"
+          value={state.volume}
+          onChange={e => dispatch({type: MediaEventType.CHANGE_VOLUME, payload: +e.target.value})}
           className="w-28 h-2 bg-blue-500 accent-indigo-500 cursor-pointer"
         />
       </div>
