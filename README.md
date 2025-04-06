@@ -1,14 +1,17 @@
 ## TODO
+#### Refactoring
 * [ ] Cleanup css files & tailwind classes
 * [ ] Restructure directories (components, ...);
-* [ ] Drag media controls
-* [ ] Add music
-* [ ] Re-order music and drag to different category
-* [x] Add category indicators
 * [ ] Check responsive design
 * [x] Key errors
 * [ ] Linting & styling
+
+#### Functionality
+* [x] Add category indicators
 * [x] Keyboard shortcuts
+* [ ] Add music
 * [ ] Delete music
-* [ ] Delete category
 * [ ] Add category
+* [ ] Delete category
+* [ ] Reorder music and drag to different category
+* [x] Drag media controls

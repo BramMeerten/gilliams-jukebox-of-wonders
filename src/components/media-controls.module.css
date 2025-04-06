@@ -3,7 +3,5 @@
   height: 5rem;
 
   position: absolute;
-  left: 50%;
-  bottom: 5rem;
   transform: translate(-50%, 0);
 }
