@@ -1,5 +1,5 @@
-import { MUSIC_DATA } from "@/components/data";
-import { MusicTileRow } from "@/components/music-tile-row";
+import { MUSIC_DATA } from "./data";
+import { MusicTileRow } from "./music-tile-row";
 
 export default function Home() {
   return (
