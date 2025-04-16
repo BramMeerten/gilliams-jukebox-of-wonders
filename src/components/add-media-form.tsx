@@ -130,7 +130,7 @@ const InputForm = ({
   );
 };
 
-type YoutubeResponse = {errors: {[key: string]: unknown}} | {value: Partial<Value>};
+type YoutubeResponse = {errors?: {[key: string]: unknown}, value?: Partial<Value>};
 
 const fetchYoutubeInfo = async (url: string): Promise<YoutubeResponse> => {
   const regexMatch = YOUTUBE_ID_REGEX.exec(url ?? "");
@@ -147,6 +147,8 @@ const fetchYoutubeInfo = async (url: string): Promise<YoutubeResponse> => {
       title: body.title,
       image: `https://i.ytimg.com/vi_webp/${ytId}/sddefault.webp`,
     } };
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch(unused: unknown) {
     return { errors: {url: undefined} };  // TODO unknown????
   }
