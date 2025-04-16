@@ -27,8 +27,10 @@ export const MediaControls = () => {
 
   const keyDown = useCallback((e: KeyboardEvent) => {
     if (e.code === 'Space' || e.code === 'KeyK') {
-      e.preventDefault();
-      togglePlay();
+      if (!(e.target instanceof HTMLInputElement)) {
+        e.preventDefault();
+        togglePlay();
+      }
     }
   }, [togglePlay]);
 
