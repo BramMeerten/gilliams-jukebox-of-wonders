@@ -1,22 +1,29 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { Modal } from "./modal";
+import { Music } from "@/model/music";
 
 interface Value {
   url?: string;
   title?: string;
   subtitle?: string;
+  videoId?: string;
   image?: string;
 }
 
 const YOUTUBE_ID_REGEX =
-  /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/gi;
+  /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
 
-export const AddMediaForm = () => {
+interface Props {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  addMediaClicked: (value: Music, callback: (error?: any) => void) => void;
+}
+
+export const AddMediaForm = ({ addMediaClicked }: Props) => {
   const [showAddMedia, setShowAddMedia] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: unknown }>({});
+  const [saveError, setSaveError] = useState<string | undefined>();
   const [value, setValue] = useState<Value>({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (value.url === undefined) {
@@ -28,6 +35,7 @@ export const AddMediaForm = () => {
         setErrors(oldErrors => ({ ...oldErrors, ...errors}));
       } else {
         setValue(oldValue => ({ ...oldValue, ...value}));
+        setErrors(oldErrors => ({ ...oldErrors, url: undefined }));
       }
     });
   }, [value.url, setErrors, setValue]);
@@ -41,7 +49,7 @@ export const AddMediaForm = () => {
 
   const validate = (value: Value): { [key: string]: boolean } => {
     return {
-      url: !(value.url || "").match(YOUTUBE_ID_REGEX),
+      url: !value.videoId,
       title: !value.title?.trim()?.length,
       subtitle: false,
       image: !value.image,
@@ -50,6 +58,31 @@ export const AddMediaForm = () => {
 
   const validationErrors = validate(value);
   const isValid = Object.values(validationErrors).every((error) => !error);
+
+  const closeModal = () => {
+    setShowAddMedia(false);
+    setErrors({});
+    setValue({});
+    setSaveError(undefined);
+    setLoading(false);
+  }
+
+  const addClicked = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation(); 
+    const media = {image: value.image!, title: value.title!, subtitle: value.subtitle, videoId: value.videoId!};
+    setLoading(true);
+    setSaveError(undefined);
+
+    addMediaClicked(media, error => {
+      if (!error) {
+        closeModal();
+      } else {
+        setLoading(false);
+        setSaveError('message' in error ? error.message : 'Something went wrong, try again.');
+        console.log('Failed to add media:', error);
+      }
+    });
+  };
 
   return (
     <div
@@ -60,8 +93,9 @@ export const AddMediaForm = () => {
       <div className="relative z-10 text-white text-5xl font-light group-hover:scale-110 transition-transform duration-300">
         +
       </div>
-      <Modal visible={showAddMedia} onClose={() => setShowAddMedia(false)}>
-        <div className="text-xl font-semibold pt-2 pb-2">Add Youtube Media</div>
+      <Modal visible={showAddMedia} onClose={closeModal}>
+        <div className="text-xl font-semibold pt-2 pb-2">Add Youtube Media {showAddMedia ? 'SHOW' : 'HIDE'}</div>
+        { saveError && <div className="mb-2 text-sm text-red-500">{saveError}</div> }
 
         <InputForm
           setValue={(url) => setValue({ ...value, url })}
@@ -94,9 +128,9 @@ export const AddMediaForm = () => {
 
         <button
           className="p-2 bg-indigo-500 hover:bg-indigo-600 rounded-md transition cursor-pointer font-semibold mt-4 min-w-24 float-right disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
-          disabled={!isValid}
-        >
-          Add
+          disabled={!isValid || loading}
+          onClick={addClicked}>
+          { loading ? 'Adding..' : 'Add' }
         </button>
       </Modal>
     </div>
@@ -146,10 +180,11 @@ const fetchYoutubeInfo = async (url: string): Promise<YoutubeResponse> => {
     return { value: {
       title: body.title,
       image: `https://i.ytimg.com/vi_webp/${ytId}/sddefault.webp`,
+      videoId: ytId,
     } };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch(unused: unknown) {
-    return { errors: {url: undefined} };  // TODO unknown????
+    return { errors: {url: undefined} };
   }
 }

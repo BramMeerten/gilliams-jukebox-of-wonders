@@ -1,6 +1,6 @@
 import { MusicLibrary } from "@/model/library";
 
-export const MUSIC_DATA: MusicLibrary = [
+export const DEFAULT_LIBRARY: MusicLibrary = [
   {
     category: 'City',
     music: [
@@ -8,7 +8,7 @@ export const MUSIC_DATA: MusicLibrary = [
         title: 'Large City', 
         subtitle: 'Day', 
         videoId: 'ddMSMwKQkKI', 
-        image: 'https://i.ytimg.com/vi/ddMSMwKQkKI/hq720.jpg?sqp=-oaymwExCNAFEJQDSFryq4qpAyMIARUAAIhCGAHwAQH4Af4JgALQBYoCDAgAEAEYciA-KEEwDw==&rs=AOn4CLC2xrWMTyJ_AuupbnOcPBcA29y3LA'
+        image: 'https://i.ytimg.com/vi_webp/_2Ax43Dd3Fg/sddefault.webp'
       },
       {
         title: 'Festival Town', 

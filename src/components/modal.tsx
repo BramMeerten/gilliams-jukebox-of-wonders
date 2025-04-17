@@ -46,7 +46,6 @@ export const Modal = ({ visible, children, onClose }: Props) => {
     return () => document.removeEventListener("keydown", keyDown, false);
   }, [keyDown, visible]);
 
-  // TODO animate
   return (
     visible &&
     modalRoot &&

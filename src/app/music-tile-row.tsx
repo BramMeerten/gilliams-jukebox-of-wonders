@@ -2,7 +2,23 @@ import { Music } from "@/model/music";
 import { MusicTile } from "./music-tile";
 import { AddMediaForm } from "@/components/add-media-form";
 
-export const MusicTileRow = (props: {tiles: Music[], name: string}) => {
+interface Props {
+  tiles: Music[];
+  name: string;
+  mediaAdded: (media: Music) => void
+}
+
+export const MusicTileRow = (props: Props) => {
+
+  const addMediaClicked = (value: Music, callback: (error?: unknown) => void) => {
+    try {
+      props.mediaAdded(value);
+      callback();
+    } catch(e: unknown) {
+      callback(e);
+    }
+  }
+
   return (
     <div className="flex" style={{width: '1000px'}}>
       <div className="uppercase text-xl font-semibold text-center z-1" style={{writingMode: 'sideways-lr'}}>
@@ -18,7 +34,7 @@ export const MusicTileRow = (props: {tiles: Music[], name: string}) => {
             ))}
 
             <div className="flex-shrink-0 ml-4 first:ml-0">
-              <AddMediaForm />
+              <AddMediaForm addMediaClicked={addMediaClicked} />
             </div>
 
         </div>
