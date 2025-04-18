@@ -14,8 +14,8 @@
 #### Functionality
 * [x] Add category indicators
 * [x] Keyboard shortcuts
-* [ ] Add music
-* [ ] Delete music
+* [x] Add music
+* [x] Delete music
 * [ ] Add category
 * [ ] Delete category
 * [ ] Reorder music and drag to different category
@@ -23,5 +23,5 @@
 * [x] Title and favicon
 * [ ] Make public
 * [ ] Add info menu (and optional welcome menu?)
-* [ ] Save in local storage
+* [x] Save in local storage
 * [ ] Export/import save file

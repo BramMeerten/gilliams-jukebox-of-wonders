@@ -15,16 +15,25 @@ export default function Home() {
   }, []);
 
   const mediaAdded = (category: string, music: Music) => {
-    if (!library) {
-      return;
-    }
-
-    const newLibrary = library.map(cat => {
+    const newLibrary = library!.map(cat => {
       if (cat.category === category) {
         if (cat.music.some(m => m.videoId === music.videoId)) {
           throw new Error('Video already exists in category');
         }
         return { category: cat.category, music: [...cat.music, music] };
+      } else {
+        return { category: cat.category, music: [...cat.music] };
+      }
+    });
+
+    saveLibrary(newLibrary);
+    setLibrary(newLibrary);
+  };
+
+  const mediaRemoved = (category: string, music: Music) => {
+    const newLibrary = library!.map(cat => {
+      if (cat.category === category) {
+        return { category: cat.category, music: [...cat.music.filter(m => m.videoId !== music.videoId)] };
       } else {
         return { category: cat.category, music: [...cat.music] };
       }
@@ -45,6 +54,7 @@ export default function Home() {
               name={cat.category}
               tiles={cat.music}
               mediaAdded={music => mediaAdded(cat.category, music)}
+              mediaRemoved={music => mediaRemoved(cat.category, music)}
             />
           ))}
       </main>
