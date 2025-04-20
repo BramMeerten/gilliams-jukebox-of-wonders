@@ -77,6 +77,10 @@ export default function Home() {
 
   const categoryAdded = (category: string, callback: (error?: unknown) => void) => {
     try {
+      if (library!.some(row => row.category.toUpperCase() === category.toUpperCase())) {
+        throw new Error(`Category ${category} already exists.`);
+      }
+
       const newLibrary: MusicLibrary = [...library!, { category, music: [] }];
       saveLibrary(newLibrary);
       setLibrary(newLibrary);

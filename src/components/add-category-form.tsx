@@ -27,8 +27,9 @@ export const AddCategoryForm = ({addClicked}: Props) => {
     setValidationError(!value || value.trim().length === 0);
   };
 
-  const handleAddClicked = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleAddClicked = (e: React.FormEvent) => {
     e.stopPropagation(); 
+    e.preventDefault();
     setLoading(true);
     setSaveError(undefined);
 
@@ -68,7 +69,7 @@ export const AddCategoryForm = ({addClicked}: Props) => {
           <div className="text-xl font-semibold pt-2 pb-2">Add Category</div>
           { saveError && <div className="mb-2 text-sm text-red-500">{saveError}</div> }
 
-          <form>
+          <form onSubmit={handleAddClicked}>
             <ModalInputForm
               autoFocus
               setValue={categoryUpdated}
@@ -81,8 +82,7 @@ export const AddCategoryForm = ({addClicked}: Props) => {
 
             <button
               className="p-2 bg-indigo-500 hover:bg-indigo-600 rounded-md transition cursor-pointer font-semibold mt-4 min-w-24 float-right disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
-              disabled={validationError || loading}
-              onClick={handleAddClicked}>
+              disabled={validationError || loading}>
               { loading ? 'Adding..' : 'Add' }
             </button>
           </form>

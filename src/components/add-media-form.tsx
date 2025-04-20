@@ -69,8 +69,9 @@ export const AddMediaForm = ({ addMediaClicked }: Props) => {
     setLoading(false);
   }
 
-  const addClicked = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const addClicked = (e: React.FormEvent) => {
     e.stopPropagation(); 
+    e.preventDefault();
     const media = {image: value.image!, title: value.title!, subtitle: value.subtitle, videoId: value.videoId!, id: uuid4()};
     setLoading(true);
     setSaveError(undefined);
@@ -99,7 +100,7 @@ export const AddMediaForm = ({ addMediaClicked }: Props) => {
         <div className="text-xl font-semibold pt-2 pb-2">Add Youtube Media</div>
         { saveError && <div className="mb-2 text-sm text-red-500">{saveError}</div> }
 
-        <form>
+        <form onSubmit={addClicked}>
           <ModalInputForm
             autoFocus
             setValue={(url) => setValue({ ...value, url })}
@@ -132,8 +133,7 @@ export const AddMediaForm = ({ addMediaClicked }: Props) => {
 
           <button
             className="p-2 bg-indigo-500 hover:bg-indigo-600 rounded-md transition cursor-pointer font-semibold mt-4 min-w-24 float-right disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
-            disabled={!isValid || loading}
-            onClick={addClicked}>
+            disabled={!isValid || loading}>
             { loading ? 'Adding..' : 'Add' }
           </button>
         </form>
