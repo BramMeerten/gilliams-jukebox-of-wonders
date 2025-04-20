@@ -1,6 +1,6 @@
 import { MediaEventType, useMedia } from "@/components/media-player/media-context";
 import { Music } from "@/model/music";
-import { DragEvent, useState } from "react";
+import { motion } from "motion/react";
 
 interface Props {
   music: Music;
@@ -14,34 +14,33 @@ export const DRAG_KEY_CATEGORY = "category";
 
 export const MusicTile = ({music, category, removeClicked, className}: Props) => {
   const {dispatch} = useMedia();
-  const [isBeingRemoved, setIsBeingRemoved] = useState(false);
 
   const handleClick = () => {
     dispatch({type: MediaEventType.CHANGE_SOURCE, payload: music});
   };
 
-  const onDragStart = (e: DragEvent) => {
+  const onDragStart = (e: React.DragEvent) => {
     e.dataTransfer.setData(DRAG_KEY_CATEGORY, category);
     e.dataTransfer.setData(DRAG_KEY_MUSIC, JSON.stringify(music));
   };
 
   return (
-    <div className={`relative h-40 rounded-2xl overflow-hidden shadow-lg bg-cover bg-center group cursor-pointer
-                     transition-all duration-300 ease-in-out
-                     ${isBeingRemoved ? 'opacity-0 scale-90 w-0 ml-0' : 'w-72 ' + className}`}
+    <motion.div className={`relative h-40 rounded-2xl overflow-hidden shadow-lg bg-cover bg-center group cursor-pointer w-72 ${className}`}
          draggable="true"
-         onDragStart={onDragStart}
+         onDragStart={onDragStart as any /*eslint-disable-line @typescript-eslint/no-explicit-any*/}
+         layout
+         layoutId={music.id}
          data-column={category}
-         style={{ backgroundImage: `url(${music.image})`}}
-         onClick={handleClick}
-         onTransitionEnd={() => isBeingRemoved && removeClicked()}>
+         style={{ backgroundImage: `url(${music.image})`, transition: 'margin 300ms'}}
+         onClick={handleClick}>
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
 
-      <button className="absolute top-2 right-2 z-20 w-6 h-6 rounded-full bg-black/50 hover:bg-black/70 hover:text-gray-400 flex items-center justify-center text-white text-sm
+      <button className="absolute top-2 right-2 z-20 w-6 h-6 rounded-full bg-black/50 hover:bg-black/70 hover:text-gray-400 
+                         flex items-center justify-center text-white text-sm
                          cursor-pointer duration-300 transition-all opacity-0 group-hover:opacity-100 group-hover:-translate-y-1"
       onClick={(e) => {
         e.stopPropagation();
-        setIsBeingRemoved(true);
+        removeClicked();
       }}>
         ✕
       </button>
@@ -57,6 +56,6 @@ export const MusicTile = ({music, category, removeClicked, className}: Props) =>
           </svg>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

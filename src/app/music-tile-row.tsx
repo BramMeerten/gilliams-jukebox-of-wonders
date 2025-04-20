@@ -1,8 +1,7 @@
-import { Music } from "@/model/music";
-import { DRAG_KEY_CATEGORY, DRAG_KEY_MUSIC, MusicTile } from "./music-tile";
 import { AddMediaForm } from "@/components/add-media-form";
-import { DragEvent } from "react";
-import { clear } from "node:console";
+import { Music } from "@/model/music";
+import { DragEvent, useRef } from "react";
+import { DRAG_KEY_CATEGORY, DRAG_KEY_MUSIC, MusicTile } from "./music-tile";
 
 interface Props {
   tiles: Music[];
@@ -16,6 +15,7 @@ interface Props {
 }
 
 export const MusicTileRow = (props: Props) => {
+  const rowRef = useRef<HTMLDivElement | null>(null);
   const addMediaClicked = (
     value: Music,
     callback: (error?: unknown) => void,
@@ -72,7 +72,11 @@ export const MusicTileRow = (props: Props) => {
     highlightTileElement(element, elements);
   };
 
-  const handleDragLeave = () => {
+  const handleDragLeave = (e: DragEvent) => {
+    // Still in row, leave event should not have triggered
+    if (e.relatedTarget && rowRef.current && rowRef.current.contains(e.relatedTarget as Node)) {
+      return;
+    }
     getTileElements().forEach(clearHighlightTile);
   };
 
@@ -113,9 +117,7 @@ export const MusicTileRow = (props: Props) => {
   };
 
   const highlightTileElement = (tile: { side: Side, elem: HTMLElement } | undefined, allTiles: HTMLElement[]) => {
-    allTiles
-      .filter(t => t !== tile?.elem) // Don't clear tile, otherwise CSS transitions get reset
-      .forEach(clearHighlightTile);
+    allTiles.forEach(clearHighlightTile);
 
     if (tile?.side === Side.LEFT) {
       tile.elem.style.marginLeft = "1rem";
@@ -134,6 +136,7 @@ export const MusicTileRow = (props: Props) => {
 
   return (
     <div
+      ref={rowRef}
       className="flex"
       style={{ width: "1000px" }}
       onDrop={handleDragEnd}
