@@ -9,6 +9,9 @@ interface Props {
   className: string;
 }
 
+export const DRAG_KEY_MUSIC = "music";
+export const DRAG_KEY_CATEGORY = "category";
+
 export const MusicTile = ({music, category, removeClicked, className}: Props) => {
   const {dispatch} = useMedia();
   const [isBeingRemoved, setIsBeingRemoved] = useState(false);
@@ -18,8 +21,8 @@ export const MusicTile = ({music, category, removeClicked, className}: Props) =>
   };
 
   const onDragStart = (e: DragEvent) => {
-    e.dataTransfer.setData("category", category);
-    e.dataTransfer.setData("music", JSON.stringify(music));
+    e.dataTransfer.setData(DRAG_KEY_CATEGORY, category);
+    e.dataTransfer.setData(DRAG_KEY_MUSIC, JSON.stringify(music));
   };
 
   return (

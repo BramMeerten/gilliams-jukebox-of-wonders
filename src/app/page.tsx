@@ -43,6 +43,40 @@ export default function Home() {
     setLibrary(newLibrary);
   };
 
+  const mediaMoved = (from: {media: Music, category: string}, to: {index: number, category: string}) => {
+    // If tile is moved to a new place in the *same* row AND the new place is to the right of the old place,
+    // then offset the index by -1 because by removing the tile from the old place, all indexes shift by 1.
+    let indexOffset = 0; 
+    if (from.category === to.category) {
+      const row = library?.find(r => r.category === to.category);
+      if (row) {
+        const index = row.music.findIndex(m => m.videoId === from.media.videoId); // TODO don't use mediaId use an ID
+        if (index < to.index) {
+          indexOffset = -1;
+        }
+      }
+    }
+
+    const newLibrary = library!
+      // Remove FROM
+      .map(cat => ({
+        ...cat, 
+        music: cat.music.filter(m => cat.category !== from.category || m.videoId !== from.media.videoId) // TODO don't use mediaId, use an ID
+      }))
+
+      // Add TO
+      .map(cat => {
+        const music = cat.category === to.category ? cat.music.toSpliced(to.index + indexOffset, 0, from.media) : cat.music;
+        return {
+          ...cat,
+          music
+        };
+      });
+
+    saveLibrary(newLibrary);
+    setLibrary(newLibrary);
+  };
+
   return (
     <div className="grid justify-items-center p-8 gap-16 font-[family-name:var(--font-geist-sans)]">
       <main>
@@ -55,6 +89,7 @@ export default function Home() {
               tiles={cat.music}
               mediaAdded={music => mediaAdded(cat.category, music)}
               mediaRemoved={music => mediaRemoved(cat.category, music)}
+              mediaMoved={({from, to}) => mediaMoved(from, to)}
             />
           ))}
       </main>

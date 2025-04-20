@@ -1,13 +1,18 @@
 import { Music } from "@/model/music";
-import { MusicTile } from "./music-tile";
+import { DRAG_KEY_CATEGORY, DRAG_KEY_MUSIC, MusicTile } from "./music-tile";
 import { AddMediaForm } from "@/components/add-media-form";
 import { DragEvent } from "react";
+import { clear } from "node:console";
 
 interface Props {
   tiles: Music[];
   name: string;
   mediaAdded: (media: Music) => void;
   mediaRemoved: (media: Music) => void;
+  mediaMoved: (arg: {
+    from: {media: Music, category: string}, 
+    to: { index: number, category: string}
+  }) => void;
 }
 
 export const MusicTileRow = (props: Props) => {
@@ -24,7 +29,41 @@ export const MusicTileRow = (props: Props) => {
   };
 
   const handleDragEnd = (e: DragEvent) => {
-    console.log( "stop", e.dataTransfer.getData("category"), e.dataTransfer.getData("music"));
+    try {
+      const category = e.dataTransfer.getData(DRAG_KEY_CATEGORY);
+      const media = JSON.parse(e.dataTransfer.getData(DRAG_KEY_MUSIC));
+
+      const tileElems = getTileElements();
+      tileElems.forEach(clearHighlightTile);
+      const nearest = getNearestTileElement(e, tileElems);
+      if (!nearest) {
+        return;
+      }
+
+      let index = 0; // TODO don't move if not found?
+      for (let i=0; i<tileElems.length; i++) {
+        if (tileElems[i] === nearest.elem) {
+          index = nearest.side === Side.LEFT ? i : i + 1;
+          break;
+        }
+      }
+
+      props.mediaMoved({
+        from: {
+          media,
+          category,
+        },
+        to: {
+          index,
+          category: props.name
+        }
+      });
+
+
+
+    } catch (e: unknown) {
+      console.log('No valid data found in drag event', e);
+    }
   };
 
   const handleDragOver = (e: DragEvent) => {
