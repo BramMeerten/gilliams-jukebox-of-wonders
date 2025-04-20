@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Modal } from "./modal";
 import { ModalInputForm } from "./modal-input-form";
+import { motion } from "motion/react";
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -45,7 +46,7 @@ export const AddCategoryForm = ({addClicked}: Props) => {
   };
 
   return (
-    <div className="flex" style={{ width: "1000px" }} >
+    <motion.div className="flex" style={{ width: "1000px" }} layout>
       <div className="uppercase text-xl font-semibold text-center z-1" style={{ writingMode: "sideways-lr" }}>
         &nbsp;
       </div>
@@ -88,6 +89,6 @@ export const AddCategoryForm = ({addClicked}: Props) => {
           </form>
         </Modal>
       }
-    </div>
+    </motion.div>
   );
 };

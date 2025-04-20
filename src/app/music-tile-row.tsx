@@ -2,6 +2,7 @@ import { AddMediaForm } from "@/components/add-media-form";
 import { Music } from "@/model/music";
 import { DragEvent, useRef } from "react";
 import { DRAG_KEY_CATEGORY, DRAG_KEY_MUSIC, MusicTile } from "./music-tile";
+import { motion } from "motion/react";
 
 interface Props {
   tiles: Music[];
@@ -12,6 +13,7 @@ interface Props {
     from: {media: Music, category: string}, 
     to: { index: number, category: string}
   }) => void;
+  removed: () => void;
 }
 
 export const MusicTileRow = (props: Props) => {
@@ -135,19 +137,33 @@ export const MusicTileRow = (props: Props) => {
   }
 
   return (
-    <div
+    <motion.div
       ref={rowRef}
       className="flex"
       style={{ width: "1000px" }}
       onDrop={handleDragEnd}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
+      layout
+      layoutId={props.name}
     >
       <div
-        className="uppercase text-xl font-semibold text-center z-1"
+        className="h-40 uppercase text-xl font-semibold text-center z-1 group flex justify-center items-center"
         style={{ writingMode: "sideways-lr" }}
       >
-        {props.name}
+        <span 
+          className="overflow-hidden text-nowrap max-h-8/10">
+          {props.name}
+        </span>
+        <button className="inline z-20 w-6 h-6 mb-2 ml-1 rounded-full bg-black/50 hover:bg-black/70 hover:text-gray-400 
+                           flex items-center justify-center text-white text-sm
+                           cursor-pointer duration-300 transition-all opacity-0 group-hover:opacity-100 group-hover:-translate-y-1"
+          onClick={(e) => {
+            e.stopPropagation();
+            props.removed();
+          }}>
+          ✕
+        </button>
       </div>
       <div className="relative overflow-x-auto whitespace-nowrap py-2 ml-4">
         <div className="flex flex-nowrap py-2">
@@ -166,7 +182,7 @@ export const MusicTileRow = (props: Props) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

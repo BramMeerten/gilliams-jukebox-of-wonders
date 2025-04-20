@@ -90,6 +90,13 @@ export default function Home() {
     }
   };
 
+  const categoryRemoved = (category: string) => {
+    const newLibrary = library!.filter(row => row.category !== category);
+
+    saveLibrary(newLibrary);
+    setLibrary(newLibrary);
+  };
+
   return (
     <div className="grid justify-items-center p-8 gap-16 font-[family-name:var(--font-geist-sans)]">
       <main>
@@ -103,6 +110,7 @@ export default function Home() {
               mediaAdded={music => mediaAdded(cat.category, music)}
               mediaRemoved={music => mediaRemoved(cat.category, music)}
               mediaMoved={({from, to}) => mediaMoved(from, to)}
+              removed={() => categoryRemoved(cat.category)}
             />
           ))}
         {library && <AddCategoryForm addClicked={categoryAdded} />}

@@ -16,8 +16,8 @@
 * [x] Keyboard shortcuts
 * [x] Add music
 * [x] Delete music
-* [ ] Add category
-* [ ] Delete category
+* [x] Add category
+* [x] Delete category
 * [x] Reorder music and drag to different category
 * [x] Drag media controls
 * [x] Title and favicon
@@ -25,6 +25,7 @@
 * [ ] Add info menu (and optional welcome menu?)
 * [x] Save in local storage
 * [ ] Export/import save file
+* [ ] Confirm dialog when removing category with tiles
 
 ### bugfixes
 * [ ] Drag tile to empty category
