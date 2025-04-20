@@ -35,31 +35,27 @@ export const MusicTileRow = (props: Props) => {
 
       const tileElems = getTileElements();
       tileElems.forEach(clearHighlightTile);
+
       const nearest = getNearestTileElement(e, tileElems);
       if (!nearest) {
         return;
       }
 
-      let index = 0; // TODO don't move if not found?
       for (let i=0; i<tileElems.length; i++) {
         if (tileElems[i] === nearest.elem) {
-          index = nearest.side === Side.LEFT ? i : i + 1;
+          props.mediaMoved({
+            from: {
+              media,
+              category,
+            },
+            to: {
+              index: nearest.side === Side.LEFT ? i : i + 1,
+              category: props.name
+            }
+          });
           break;
         }
       }
-
-      props.mediaMoved({
-        from: {
-          media,
-          category,
-        },
-        to: {
-          index,
-          category: props.name
-        }
-      });
-
-
 
     } catch (e: unknown) {
       console.log('No valid data found in drag event', e);
@@ -154,7 +150,7 @@ export const MusicTileRow = (props: Props) => {
         <div className="flex flex-nowrap py-2">
           {props.tiles.map((tile) => (
             <MusicTile
-              key={tile.videoId + "-" + props.name}
+              key={tile.id}
               music={tile}
               category={props.name}
               removeClicked={() => props.mediaRemoved(tile)}

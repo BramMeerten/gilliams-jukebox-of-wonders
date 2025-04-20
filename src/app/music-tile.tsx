@@ -47,11 +47,11 @@ export const MusicTile = ({music, category, removeClicked, className}: Props) =>
       </button>
 
       <div className="relative z-10 flex items-end justify-between h-full p-4 text-white transition-transform duration-300 group-hover:-translate-y-1">
-        <div>
+        <div className="overflow-hidden">
           <h2 className="text-xl font-semibold">{music.title}</h2>
           <p className="text-sm text-gray-300">{music.subtitle}</p>
         </div>
-        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/20 group-hover:bg-white/30 transition duration-300">
+        <div className="flex items-center justify-center w-8 h-8 min-w-8 rounded-full bg-white/20 group-hover:bg-white/30 transition duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 fill-white" viewBox="0 0 24 24">
             <path d="M8 5v14l11-7z" />
           </svg>

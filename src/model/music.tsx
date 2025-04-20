@@ -3,4 +3,5 @@ export interface Music {
   subtitle?: string;
   videoId: string;
   image: string;
+  id: string;
 }

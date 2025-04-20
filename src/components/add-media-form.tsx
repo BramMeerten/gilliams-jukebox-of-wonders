@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Modal } from "./modal";
 import { Music } from "@/model/music";
+import { v4 as uuid4} from "uuid"
 
 interface Value {
   url?: string;
@@ -69,7 +70,7 @@ export const AddMediaForm = ({ addMediaClicked }: Props) => {
 
   const addClicked = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); 
-    const media = {image: value.image!, title: value.title!, subtitle: value.subtitle, videoId: value.videoId!};
+    const media = {image: value.image!, title: value.title!, subtitle: value.subtitle, videoId: value.videoId!, id: uuid4()};
     setLoading(true);
     setSaveError(undefined);
 

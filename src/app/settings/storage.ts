@@ -51,6 +51,7 @@ interface SavedMusicLibraryV1 {
       subtitle?: string;
       videoId: string;
       image: string;
+      id: string;
     }[];
   }[];
 }

@@ -17,9 +17,6 @@ export default function Home() {
   const mediaAdded = (category: string, music: Music) => {
     const newLibrary = library!.map(cat => {
       if (cat.category === category) {
-        if (cat.music.some(m => m.videoId === music.videoId)) {
-          throw new Error('Video already exists in category');
-        }
         return { category: cat.category, music: [...cat.music, music] };
       } else {
         return { category: cat.category, music: [...cat.music] };
@@ -33,7 +30,7 @@ export default function Home() {
   const mediaRemoved = (category: string, music: Music) => {
     const newLibrary = library!.map(cat => {
       if (cat.category === category) {
-        return { category: cat.category, music: [...cat.music.filter(m => m.videoId !== music.videoId)] };
+        return { category: cat.category, music: [...cat.music.filter(m => m.id !== music.id)] };
       } else {
         return { category: cat.category, music: [...cat.music] };
       }
@@ -50,7 +47,7 @@ export default function Home() {
     if (from.category === to.category) {
       const row = library?.find(r => r.category === to.category);
       if (row) {
-        const index = row.music.findIndex(m => m.videoId === from.media.videoId); // TODO don't use mediaId use an ID
+        const index = row.music.findIndex(m => m.id === from.media.id);
         if (index < to.index) {
           indexOffset = -1;
         }
@@ -61,7 +58,7 @@ export default function Home() {
       // Remove FROM
       .map(cat => ({
         ...cat, 
-        music: cat.music.filter(m => cat.category !== from.category || m.videoId !== from.media.videoId) // TODO don't use mediaId, use an ID
+        music: cat.music.filter(m => cat.category !== from.category || m.id !== from.media.id)
       }))
 
       // Add TO
