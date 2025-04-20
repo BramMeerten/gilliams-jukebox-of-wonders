@@ -1,14 +1,15 @@
 import { MediaEventType, useMedia } from "@/components/media-player/media-context";
 import { Music } from "@/model/music";
-import { useState } from "react";
+import { DragEvent, useState } from "react";
 
 interface Props {
   music: Music;
+  category: string;
   removeClicked: () => void;
   className: string;
 }
 
-export const MusicTile = ({music, removeClicked, className}: Props) => {
+export const MusicTile = ({music, category, removeClicked, className}: Props) => {
   const {dispatch} = useMedia();
   const [isBeingRemoved, setIsBeingRemoved] = useState(false);
 
@@ -16,10 +17,18 @@ export const MusicTile = ({music, removeClicked, className}: Props) => {
     dispatch({type: MediaEventType.CHANGE_SOURCE, payload: music});
   };
 
+  const onDragStart = (e: DragEvent) => {
+    e.dataTransfer.setData("category", category);
+    e.dataTransfer.setData("music", JSON.stringify(music));
+  };
+
   return (
     <div className={`relative h-40 rounded-2xl overflow-hidden shadow-lg bg-cover bg-center group cursor-pointer
                      transition-all duration-300 ease-in-out
                      ${isBeingRemoved ? 'opacity-0 scale-90 w-0 ml-0' : 'w-72 ' + className}`}
+         draggable="true"
+         onDragStart={onDragStart}
+         data-column={category}
          style={{ backgroundImage: `url(${music.image})`}}
          onClick={handleClick}
          onTransitionEnd={() => isBeingRemoved && removeClicked()}>
