@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Modal } from "./modal";
 import { Music } from "@/model/music";
 import { v4 as uuid4} from "uuid"
+import { ModalInputForm } from "./modal-input-form";
 
 interface Value {
   url?: string;
@@ -95,72 +96,48 @@ export const AddMediaForm = ({ addMediaClicked }: Props) => {
         +
       </div>
       <Modal visible={showAddMedia} onClose={closeModal}>
-        <div className="text-xl font-semibold pt-2 pb-2">Add Youtube Media {showAddMedia ? 'SHOW' : 'HIDE'}</div>
+        <div className="text-xl font-semibold pt-2 pb-2">Add Youtube Media</div>
         { saveError && <div className="mb-2 text-sm text-red-500">{saveError}</div> }
 
-        <InputForm
-          setValue={(url) => setValue({ ...value, url })}
-          value={value.url}
-          placeholder="Enter YouTube URL*"
-          errorMessage={
-            errors?.url ? "Please enter a valid YouTube URL." : undefined
-          }
-        />
-        <InputForm
-          setValue={(title) => updateTitle(title)}
-          value={value.title}
-          placeholder="Title*"
-          errorMessage={errors?.title ? "Please add a valid Title." : undefined}
-        />
-        <InputForm
-          setValue={(subtitle) => setValue((value) => ({ ...value, subtitle }))}
-          value={value.subtitle}
-          placeholder="Subtitle"
-        />
+        <form>
+          <ModalInputForm
+            autoFocus
+            setValue={(url) => setValue({ ...value, url })}
+            value={value.url}
+            placeholder="Enter YouTube URL*"
+            errorMessage={
+              errors?.url ? "Please enter a valid YouTube URL." : undefined
+            }
+          />
+          <ModalInputForm
+            setValue={(title) => updateTitle(title)}
+            value={value.title}
+            placeholder="Title*"
+            errorMessage={errors?.title ? "Please add a valid Title." : undefined}
+          />
+          <ModalInputForm
+            setValue={(subtitle) => setValue((value) => ({ ...value, subtitle }))}
+            value={value.subtitle}
+            placeholder="Subtitle"
+          />
 
-        {value.image && (
-          <div className="w-full p-2 aspect-72/40">
-            <div
-              className="w-full h-full bg-cover bg-center"
-              style={{backgroundImage: `url(${value.image})`}}
-            />
-          </div>
-        )}
+          {value.image && (
+            <div className="w-full p-2 aspect-72/40">
+              <div
+                className="w-full h-full bg-cover bg-center"
+                style={{backgroundImage: `url(${value.image})`}}
+              />
+            </div>
+          )}
 
-        <button
-          className="p-2 bg-indigo-500 hover:bg-indigo-600 rounded-md transition cursor-pointer font-semibold mt-4 min-w-24 float-right disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
-          disabled={!isValid || loading}
-          onClick={addClicked}>
-          { loading ? 'Adding..' : 'Add' }
-        </button>
+          <button
+            className="p-2 bg-indigo-500 hover:bg-indigo-600 rounded-md transition cursor-pointer font-semibold mt-4 min-w-24 float-right disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
+            disabled={!isValid || loading}
+            onClick={addClicked}>
+            { loading ? 'Adding..' : 'Add' }
+          </button>
+        </form>
       </Modal>
-    </div>
-  );
-};
-
-const InputForm = ({
-  value,
-  setValue,
-  errorMessage,
-  placeholder,
-}: {
-  value?: string;
-  setValue: (val: string) => void;
-  errorMessage?: string;
-  placeholder: string;
-}) => {
-  return (
-    <div className="max-w-sm mx-auto">
-      <input
-        type="text"
-        value={value ?? ""}
-        onChange={(e) => setValue(e.target.value)}
-        placeholder={placeholder}
-        className={`mt-1 block w-full border p-2 text-black bg-white rounded-md shadow-sm ${!errorMessage ? "border-gray-300" : "border-red-500"}`}
-      />
-      {errorMessage && (
-        <p className="mt-1 text-sm text-red-500">{errorMessage}</p>
-      )}
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { loadLibrary, saveLibrary } from "./settings/storage";
 import { DEFAULT_LIBRARY } from "@/model/default-library";
 import { Music } from "@/model/music";
+import { AddCategoryForm } from "@/components/add-category-form";
 
 export default function Home() {
   const [library, setLibrary] = useState<MusicLibrary>();
@@ -74,6 +75,17 @@ export default function Home() {
     setLibrary(newLibrary);
   };
 
+  const categoryAdded = (category: string, callback: (error?: unknown) => void) => {
+    try {
+      const newLibrary: MusicLibrary = [...library!, { category, music: [] }];
+      saveLibrary(newLibrary);
+      setLibrary(newLibrary);
+      callback();
+    } catch (e: unknown) {
+      callback(e);
+    }
+  };
+
   return (
     <div className="grid justify-items-center p-8 gap-16 font-[family-name:var(--font-geist-sans)]">
       <main>
@@ -89,6 +101,7 @@ export default function Home() {
               mediaMoved={({from, to}) => mediaMoved(from, to)}
             />
           ))}
+        {library && <AddCategoryForm addClicked={categoryAdded} />}
       </main>
     </div>
   );

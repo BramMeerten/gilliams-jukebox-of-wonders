@@ -18,10 +18,13 @@
 * [x] Delete music
 * [ ] Add category
 * [ ] Delete category
-* [ ] Reorder music and drag to different category
+* [x] Reorder music and drag to different category
 * [x] Drag media controls
 * [x] Title and favicon
 * [ ] Make public
 * [ ] Add info menu (and optional welcome menu?)
 * [x] Save in local storage
 * [ ] Export/import save file
+
+### bugfixes
+* [ ] Drag tile to empty category
