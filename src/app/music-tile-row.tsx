@@ -1,8 +1,9 @@
 import { AddMediaForm } from "@/components/add-media-form";
 import { Music } from "@/model/music";
-import { DragEvent, useRef } from "react";
+import { DragEvent, useRef, useState } from "react";
 import { DRAG_KEY_CATEGORY, DRAG_KEY_MUSIC, MusicTile } from "./music-tile";
 import { motion } from "motion/react";
+import { Modal } from "@/components/modal";
 
 interface Props {
   tiles: Music[];
@@ -17,7 +18,9 @@ interface Props {
 }
 
 export const MusicTileRow = (props: Props) => {
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const rowRef = useRef<HTMLDivElement | null>(null);
+
   const addMediaClicked = (
     value: Music,
     callback: (error?: unknown) => void,
@@ -160,7 +163,11 @@ export const MusicTileRow = (props: Props) => {
                            cursor-pointer duration-300 transition-all opacity-0 group-hover:opacity-100 group-hover:-translate-y-1"
           onClick={(e) => {
             e.stopPropagation();
-            props.removed();
+            if (props.tiles.length > 1) {
+              setConfirmDelete(true);
+            } else {
+              props.removed();
+            }
           }}>
           ✕
         </button>
@@ -182,6 +189,24 @@ export const MusicTileRow = (props: Props) => {
           </div>
         </div>
       </div>
+
+      <Modal visible={confirmDelete} onClose={() => setConfirmDelete(false)}>
+        <div className="text-xl font-semibold pt-2 pb-2">Are you sure?</div>
+        <div className="text-l pt-2 pb-2">Deleting category &quot;{props.name}&quot; will also delete {props.tiles.length} video{props.tiles.length > 1 ? 's' : ''}.</div>
+
+        <div className="float-right mt-4">
+          <button
+            onClick={() => setConfirmDelete(false) }
+            className="p-2 mr-2 bg-gray-500 hover:bg-gray-600 rounded-md cursor-pointer font-semibold min-w-24">
+            Cancel
+          </button>
+          <button
+            onClick={() => { setConfirmDelete(false); props.removed(); }}
+            className="p-2 bg-indigo-500 hover:bg-indigo-600 rounded-md cursor-pointer font-semibold min-w-24">
+            Remove
+          </button>
+        </div>
+      </Modal>
     </motion.div>
   );
 };

@@ -8,7 +8,7 @@ export const DEFAULT_LIBRARY: MusicLibrary = [
         title: 'Large City', 
         subtitle: 'Day', 
         videoId: 'ddMSMwKQkKI', 
-        image: 'https://i.ytimg.com/vi_webp/_2Ax43Dd3Fg/sddefault.webp',
+        image: 'https://i.ytimg.com/vi_webp/ddMSMwKQkKI/sddefault.webp',
         id: '560248bc-e640-41ca-b143-576ec88d51dd'
       },
       {
