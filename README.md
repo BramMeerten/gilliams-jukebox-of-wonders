@@ -1,4 +1,10 @@
 # Gilliam's Jukebox of Wonders
+Manage and play a collection of YouTube music videos, organized into categories.<br>
+Easily switch between videos to match the atmosphere of your RPG scenes.
+
+[Click here to visit the "Jukebox"](https://brammeerten.github.io/gilliams-jukebox-of-wonders/)
+
+![screenshot](./resources/screenshot-1.png)
 
 ## TODO
 #### Refactor / bugfixes
@@ -31,3 +37,5 @@
 #### bugfixes
 * [ ] Drag tile to empty category
 * [ ] Tile being dragged for first time is without bg-image, second time with bg-image
+* [ ] https://www.youtube.com/watch?v=LQed7aE9YHQ
+* [ ] Weird spacing at bottom page

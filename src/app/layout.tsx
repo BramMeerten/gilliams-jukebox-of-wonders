@@ -32,7 +32,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div className="min-h-screen bg-gray-900 text-white px-4 py-6">
           <div className="absolute z-0">
-            <Image width="180" height={Math.floor((932/997)*180)} src="gilliam2.png" alt="Gilliam's Logo" className="drop-shadow" />
+            <Image width="180" height={Math.floor((932/997)*180)} src="gilliam.png" alt="Gilliam's Logo" className="drop-shadow" />
           </div>
           <MediaProvider>
             <div className="h-[calc(100vh-0rem)] overflow-y-auto">
