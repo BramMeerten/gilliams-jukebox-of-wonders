@@ -157,7 +157,7 @@ const fetchYoutubeInfo = async (url: string): Promise<YoutubeResponse> => {
 
     return { value: {
       title: body.title,
-      image: `https://i.ytimg.com/vi_webp/${ytId}/sddefault.webp`,
+      image: body.thumbnail_url,
       videoId: ytId,
     } };
 

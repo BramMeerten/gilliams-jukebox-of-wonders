@@ -14,7 +14,7 @@ Easily switch between videos to match the atmosphere of your RPG scenes.
 * Videos are automatically saved in your browser.
 
 ## Who's Gilliam?
-Gilliam P. Frost is an adventurer, musician, and writer.
+**Gilliam P. Frost** is an adventurer, musician, and writer.
 He travelled all the way from Waterdeep to Barovia, where — alongside his party, **The Mistfits** — he helped bring down lord Strahd von Zarovich.
 
 While his adventuring skills are... debated (especially by his own party), his success as a writer is unquestioned. His biggest bestseller?<br>
@@ -49,8 +49,8 @@ _“Lust Under the Full Moon: Lycan Passion (Lyrielle’s Temptation)”_ —  a
 * [ ] Export/import save file
 * [x] Confirm dialog when removing category with tiles
 
-#### bugfixes
+#### Bugfixes
 * [ ] Drag tile to empty category
 * [ ] Tile being dragged for first time is without bg-image, second time with bg-image
-* [ ] https://www.youtube.com/watch?v=LQed7aE9YHQ
+* [x] Don't harcode youtube thumbnail url, doesn't work for every video
 * [ ] Weird spacing at bottom page
