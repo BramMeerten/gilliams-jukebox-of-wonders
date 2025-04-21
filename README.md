@@ -6,6 +6,20 @@ Easily switch between videos to match the atmosphere of your RPG scenes.
 
 ![screenshot](./resources/screenshot-1.png)
 
+## Features
+* Add / remove music videos from YouTube.
+* Label the videos.
+* Organize the videos in different categories.
+* Play / pause the video in background (hotkeys `space` or `k` to play/pause).
+* Videos are automatically saved in your browser.
+
+## Who's Gilliam?
+Gilliam P. Frost is an adventurer, musician, and writer.
+He travelled all the way from Waterdeep to Barovia, where — alongside his party, **The Mistfits** — he helped bring down lord Strahd von Zarovich.
+
+While his adventuring skills are... debated (especially by his own party), his success as a writer is unquestioned. His biggest bestseller?<br>
+_“Lust Under the Full Moon: Lycan Passion (Lyrielle’s Temptation)”_ —  a steamy tale of love, danger, and fur.
+
 ## TODO
 #### Refactor / bugfixes
 * [ ] Cleanup css files & tailwind classes
@@ -28,7 +42,8 @@ Easily switch between videos to match the atmosphere of your RPG scenes.
 * [x] Reorder music and drag to different category
 * [x] Drag media controls
 * [x] Title and favicon
-* [ ] Make public & better default library
+* [x] Make public
+* [ ] Better default library
 * [ ] Add info menu (and optional welcome menu?)
 * [x] Save in local storage
 * [ ] Export/import save file
