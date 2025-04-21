@@ -20,6 +20,7 @@ interface Props {
 export const MusicTileRow = (props: Props) => {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const rowRef = useRef<HTMLDivElement | null>(null);
+  const addMediaRef = useRef<HTMLDivElement | null>(null);
 
   const addMediaClicked = (
     value: Music,
@@ -39,28 +40,23 @@ export const MusicTileRow = (props: Props) => {
       const media = JSON.parse(e.dataTransfer.getData(DRAG_KEY_MUSIC));
 
       const tileElems = getTileElements();
-      tileElems.forEach(clearHighlightTile);
+      clearHiglights(tileElems);
 
+      let index = props.tiles.length;
       const nearest = getNearestTileElement(e, tileElems);
-      if (!nearest) {
-        return;
-      }
-
-      for (let i=0; i<tileElems.length; i++) {
-        if (tileElems[i] === nearest.elem) {
-          props.mediaMoved({
-            from: {
-              media,
-              category,
-            },
-            to: {
-              index: nearest.side === Side.LEFT ? i : i + 1,
-              category: props.name
-            }
-          });
-          break;
+      if (nearest) {
+        for (let i=0; i<tileElems.length; i++) {
+          if (tileElems[i] === nearest.elem) {
+            index = nearest.side === Side.LEFT ? i : i + 1;
+            break;
+          }
         }
       }
+
+      props.mediaMoved({
+        from: { media, category },
+        to: { index, category: props.name }
+      });
 
     } catch (e: unknown) {
       console.log('No valid data found in drag event', e);
@@ -82,7 +78,7 @@ export const MusicTileRow = (props: Props) => {
     if (e.relatedTarget && rowRef.current && rowRef.current.contains(e.relatedTarget as Node)) {
       return;
     }
-    getTileElements().forEach(clearHighlightTile);
+    clearHiglights(getTileElements());
   };
 
   const getTileElements = (): HTMLElement[] => {
@@ -122,17 +118,29 @@ export const MusicTileRow = (props: Props) => {
   };
 
   const highlightTileElement = (tile: { side: Side, elem: HTMLElement } | undefined, allTiles: HTMLElement[]) => {
-    allTiles.forEach(clearHighlightTile);
+    clearHiglights(allTiles);
 
-    if (tile?.side === Side.LEFT) {
+    if (!tile) {
+      if (addMediaRef.current) {
+        addMediaRef.current.style.marginLeft = "1rem";
+      }
+
+    } else if (tile.side === Side.LEFT) {
       tile.elem.style.marginLeft = "1rem";
       tile.elem.style.marginRight = "";
 
-    } else if (tile?.side === Side.RIGHT) {
+    } else if (tile.side === Side.RIGHT) {
       tile.elem.style.marginLeft = "";
       tile.elem.style.marginRight = "2rem";
     }
   }
+
+  const clearHiglights = (allTiles: HTMLElement[]) => {
+    allTiles.forEach(clearHighlightTile);
+    if (addMediaRef.current) {
+      addMediaRef.current.style.marginLeft = "";
+    }
+  };
 
   const clearHighlightTile = (elem: HTMLElement) => {
     elem.style.marginLeft = "";
@@ -184,7 +192,7 @@ export const MusicTileRow = (props: Props) => {
             />
           ))}
 
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 transition-all" ref={addMediaRef}>
             <AddMediaForm addMediaClicked={addMediaClicked} />
           </div>
         </div>

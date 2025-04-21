@@ -50,7 +50,6 @@ _“Lust Under the Full Moon: Lycan Passion (Lyrielle’s Temptation)”_ —  a
 * [x] Confirm dialog when removing category with tiles
 
 #### Bugfixes
-* [ ] Drag tile to empty category
-* [ ] Tile being dragged for first time is without bg-image, second time with bg-image
+* [x] Drag tile to empty category
 * [x] Don't harcode youtube thumbnail url, doesn't work for every video
 * [x] Weird spacing at bottom page
