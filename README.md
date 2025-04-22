@@ -27,11 +27,11 @@ _“Lust Under the Full Moon: Lycan Passion (Lyrielle’s Temptation)”_ — a 
 
 #### Refactor / bugfixes
 
-- [ ] Cleanup css files & tailwind classes
+- [x] Cleanup css files & tailwind classes
 - [x] Restructure directories (components, ...);
 - [ ] Check responsive design
 - [x] Key errors
-- [ ] Linting & styling
+- [x] Linting & styling
 - [ ] Listen for youtube events to better sync state
 - [ ] Optimize image resolution for externam (yt) images.
 - [ ] Add option to use youtube api instead of noembed

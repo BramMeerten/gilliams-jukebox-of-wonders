@@ -5,9 +5,9 @@ import { createContext, useContext, useReducer, ReactNode } from 'react';
 
 const DEFAULT_STATE: MediaState = { playing: false, volume: 100 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const MediaContext = createContext<{ state: MediaState; dispatch: (action: MediaEvent) => void }>({
   state: DEFAULT_STATE,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   dispatch: (_) => {},
 });
 
