@@ -20,7 +20,7 @@ Easily switch between videos to match the atmosphere of your RPG scenes.
 **Gilliam P. Frost** is an adventurer, musician, and writer.
 He travelled all the way from Waterdeep to Barovia, where — alongside his party, **The Mistfits** — he helped bring down lord Strahd von Zarovich.
 
-While his adventuring skills are... debated (especially by his own party), his success as a writer is unquestioned. His biggest bestseller?<br>
+While his adventuring skills are... debated (especially by his own party), his success as a writer is undeniable. His biggest bestseller?<br>
 _“Lust Under the Full Moon: Lycan Passion (Lyrielle’s Temptation)”_ — a steamy tale of love, danger, and fur.
 
 ## TODO
