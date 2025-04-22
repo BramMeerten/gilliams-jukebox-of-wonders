@@ -29,7 +29,7 @@ _“Lust Under the Full Moon: Lycan Passion (Lyrielle’s Temptation)”_ — a 
 
 - [x] Cleanup css files & tailwind classes
 - [x] Restructure directories (components, ...);
-- [ ] Check responsive design
+- [x] Check responsive design
 - [x] Key errors
 - [x] Linting & styling
 - [ ] Listen for youtube events to better sync state

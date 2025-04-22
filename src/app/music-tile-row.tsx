@@ -146,16 +146,16 @@ export const MusicTileRow = (props: Props) => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex justify-center">
       {/* LABEL */}
       <div
-        className="h-40 uppercase text-xl font-semibold text-center z-1 group flex justify-center items-center"
+        className="h-40 uppercase sm:text-xl text-lg font-semibold text-center z-1 group flex justify-center items-center"
         style={{ writingMode: 'sideways-lr' }}
       >
         <span className="overflow-hidden text-nowrap max-h-8/10">{props.name}</span>
         <button
-          className="inline z-20 w-6 h-6 mb-2 ml-1 rounded-full bg-black/50 hover:bg-black/70 hover:text-gray-400 
-                     flex items-center justify-center text-white text-sm
+          className="z-20 w-6 h-6 mb-2 ml-1 rounded-full bg-black/50 hover:bg-black/70 hover:text-gray-400 
+                     sm:flex hidden items-center justify-center text-white text-sm
                      cursor-pointer duration-300 transition-all opacity-0 group-hover:opacity-100 group-hover:-translate-y-1"
           onClick={(e) => {
             e.stopPropagation();
@@ -180,15 +180,15 @@ export const MusicTileRow = (props: Props) => {
         layout
         layoutId={props.name}
       >
-        <div className="py-2 ml-4 flex overflow-x-scroll">
-          <div className="flex py-2">
+        <div className="sm:py-4 py-2 sm:ml-4 ml-2 flex overflow-x-scroll">
+          <div className="flex">
             {props.tiles.map((tile) => (
               <MusicTile
                 key={tile.id}
                 music={tile}
                 category={props.name}
                 removeClicked={() => props.mediaRemoved(tile)}
-                className="flex-shrink-0 mr-4"
+                className="flex-shrink-0 sm:mr-4 mr-2"
               />
             ))}
 

@@ -26,7 +26,7 @@ export const MusicTile = ({ music, category, removeClicked, className }: Props) 
 
   return (
     <motion.div
-      className={`relative w-72 h-40 rounded-2xl overflow-hidden shadow-lg bg-cover bg-center group cursor-pointer z-2 ${className}`}
+      className={`relative sm:w-72 sm:h-40 w-63 h-35 rounded-2xl overflow-hidden shadow-lg bg-cover bg-center group cursor-pointer z-2 ${className}`}
       draggable="true"
       onDragStart={onDragStart as any /*eslint-disable-line @typescript-eslint/no-explicit-any*/}
       layout
@@ -39,8 +39,8 @@ export const MusicTile = ({ music, category, removeClicked, className }: Props) 
 
       <button
         className="absolute top-2 right-2 z-20 w-6 h-6 rounded-full bg-black/50 hover:bg-black/70 hover:text-gray-400 
-                         flex items-center justify-center text-white text-sm
-                         cursor-pointer duration-300 transition-all opacity-0 group-hover:opacity-100 group-hover:-translate-y-1"
+                   sm:flex hidden items-center justify-center text-white text-sm
+                   cursor-pointer duration-300 transition-all opacity-0 group-hover:opacity-100 group-hover:-translate-y-1"
         onClick={(e) => {
           e.stopPropagation();
           removeClicked();
@@ -51,7 +51,7 @@ export const MusicTile = ({ music, category, removeClicked, className }: Props) 
 
       <div className="relative z-10 flex items-end justify-between h-full p-4 text-white transition-transform duration-300 group-hover:-translate-y-1">
         <div className="overflow-hidden">
-          <h2 className="text-xl font-semibold">{music.title}</h2>
+          <h2 className="sm:text-xl text-lg font-semibold">{music.title}</h2>
           <p className="text-sm text-gray-300">{music.subtitle}</p>
         </div>
         <div className="flex items-center justify-center w-8 h-8 min-w-8 rounded-full bg-white/20 group-hover:bg-white/30 transition duration-300">

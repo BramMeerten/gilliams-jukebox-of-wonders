@@ -97,7 +97,8 @@ export const AddMediaForm = ({ addMediaClicked }: Props) => {
     <div
       onClick={() => setShowAddMedia(true)}
       className="relative w-36 h-40 rounded-l-2xl overflow-hidden shadow-lg group cursor-pointer 
-                 flex items-center justify-center hover:scale-105 transition-transform duration-300"
+                 items-center justify-center hover:scale-105 transition-transform duration-300
+                 hidden sm:flex"
     >
       <div className="absolute inset-0 bg-gradient-to-r from-gray-800 via-gray-800 to-transparent transition duration-300"></div>
       <div className="relative z-10 text-white text-5xl font-light group-hover:scale-110 transition-transform duration-300">
