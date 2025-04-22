@@ -55,7 +55,8 @@ export const AddCategoryForm = ({addClicked}: Props) => {
           <div className="flex-shrink-0">
             <div 
               onClick={() => setShowAddCategory(true)}
-              className="relative w-36 h-40 rounded-l-2xl overflow-hidden shadow-lg group cursor-pointer flex items-center justify-center hover:scale-105 transition-transform duration-300">
+              className="relative w-36 h-40 rounded-l-2xl overflow-hidden shadow-lg group cursor-pointer 
+                         flex items-center justify-center hover:scale-105 transition-transform duration-300">
               <div className="absolute inset-0 bg-gradient-to-r from-gray-800 via-gray-800 to-transparent transition duration-300"></div>
               <div className="relative z-10 text-white text-5xl font-light group-hover:scale-110 transition-transform duration-300">
                 +
@@ -82,7 +83,8 @@ export const AddCategoryForm = ({addClicked}: Props) => {
             />
 
             <button
-              className="p-2 bg-indigo-500 hover:bg-indigo-600 rounded-md transition cursor-pointer font-semibold mt-4 min-w-24 float-right disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
+              className="p-2 bg-indigo-500 hover:bg-indigo-600 rounded-md transition cursor-pointer font-semibold mt-4 min-w-24 float-right 
+                         disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
               disabled={validationError || loading}>
               { loading ? 'Adding..' : 'Add' }
             </button>

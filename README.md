@@ -30,7 +30,7 @@ _“Lust Under the Full Moon: Lycan Passion (Lyrielle’s Temptation)”_ —  a
 * [ ] Listen for youtube events to better sync state
 * [ ] Optimize image resolution for externam (yt) images.
 * [ ] Add option to use youtube api instead of noembed
-* [ ] Media vs music
+* [ ] Media vs music vs tile
 
 #### Functionality
 * [x] Add category indicators

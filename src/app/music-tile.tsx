@@ -25,7 +25,7 @@ export const MusicTile = ({music, category, removeClicked, className}: Props) =>
   };
 
   return (
-    <motion.div className={`relative h-40 rounded-2xl overflow-hidden shadow-lg bg-cover bg-center group cursor-pointer w-72 ${className}`}
+    <motion.div className={`relative w-72 h-40 rounded-2xl overflow-hidden shadow-lg bg-cover bg-center group cursor-pointer ${className}`}
          draggable="true"
          onDragStart={onDragStart as any /*eslint-disable-line @typescript-eslint/no-explicit-any*/}
          layout

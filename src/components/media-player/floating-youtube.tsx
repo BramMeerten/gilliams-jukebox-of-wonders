@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import YouTube, { YouTubeEvent, YouTubePlayer } from 'react-youtube';
-import styles from './floating-youtube.module.css';
 import { MediaState, useMedia } from './media-context';
 
 export const FloatingYoutube = () => {
@@ -48,10 +47,10 @@ export const FloatingYoutube = () => {
     setPlayer(event.target);
   };
 
-  return (<div className={styles.floatingYoutube}>
+  return (<div className="absolute bottom-0 right-0 w-[355px] h-[200px]">
           {playerState.source && <YouTube 
-              className={styles.floatingYoutubeIframe}
-              iframeClassName={styles.floatingYoutubeIframe}
+              className="w-full h-full"
+              iframeClassName="w-full h-full"
               videoId={playerState.source.videoId}
               opts={{
                 playerVars: {

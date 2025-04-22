@@ -2,7 +2,6 @@
 
 import { Pause, Play, Volume2 } from 'lucide-react';
 import { MediaEventType, useMedia } from './media-context';
-import styles from './media-controls.module.css';
 import react, { useCallback, useEffect, useRef, useState } from 'react';
 
 export const MediaControls = () => {
@@ -89,7 +88,7 @@ export const MediaControls = () => {
 
   return (
     <div 
-      className={styles.mediaControlsContainer + " bg-gray-800 backdrop-blur-md shadow-2xl rounded-2xl p-4 flex items-center justify-center gap-4 z-50 cursor-grab"}
+      className=" w-100 h-20 absolute -translate-x-1/2 bg-gray-800 backdrop-blur-md shadow-2xl rounded-2xl p-4 flex items-center justify-center gap-4 z-50 cursor-grab"
       ref={boxRef}
       onMouseDown={onMouseDown}
       style={{
