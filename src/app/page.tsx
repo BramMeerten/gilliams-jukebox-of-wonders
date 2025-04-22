@@ -120,6 +120,9 @@ export default function Home() {
             />
           ))}
         {library && <AddCategoryForm addClicked={categoryAdded} />}
+
+        {/* Prevent overlap of media controls on mobile devices */}
+        <div className="h-14 sm:hidden"></div>
       </main>
     </div>
   );

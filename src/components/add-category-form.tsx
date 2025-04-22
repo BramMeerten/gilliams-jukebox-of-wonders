@@ -46,22 +46,24 @@ export const AddCategoryForm = ({ addClicked }: Props) => {
   };
 
   return (
-    <motion.div className="flex" layout>
+    <motion.div className="justify-center sm:flex hidden" layout>
       <div
-        className="uppercase text-xl font-semibold text-center z-1"
+        className="uppercase sm:text-xl text-lg font-semibold text-center z-1"
         style={{ writingMode: 'sideways-lr' }}
       >
         &nbsp;
       </div>
-      <div className="py-2 ml-4">
-        <div
-          onClick={() => setShowAddCategory(true)}
-          className="relative w-36 h-40 rounded-l-2xl overflow-hidden shadow-lg group cursor-pointer 
-                     flex items-center justify-center hover:scale-105 transition-transform duration-300"
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-800 via-gray-800 to-transparent transition duration-300"></div>
-          <div className="relative z-10 text-white text-5xl font-light group-hover:scale-110 transition-transform duration-300">
-            +
+      <div className="3xl:w-330 2xl:w-285 xl:w-250 w-full">
+        <div className="py-2 ml-4">
+          <div
+            onClick={() => setShowAddCategory(true)}
+            className="relative w-36 h-40 rounded-l-2xl overflow-hidden shadow-lg group cursor-pointer 
+                       flex items-center justify-center hover:scale-105 transition-transform duration-300"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-800 via-gray-800 to-transparent transition duration-300"></div>
+            <div className="relative z-10 text-white text-5xl font-light group-hover:scale-110 transition-transform duration-300">
+              +
+            </div>
           </div>
         </div>
       </div>
