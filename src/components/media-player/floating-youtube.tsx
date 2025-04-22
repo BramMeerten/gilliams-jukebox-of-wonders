@@ -52,7 +52,7 @@ export const FloatingYoutube = () => {
   };
 
   return (
-    <div className="absolute bottom-0 right-0 w-[355px] h-[200px]">
+    <div className="absolute bottom-0 right-0 lg:w-[325px] lg:h-[183px] md:w-[250px] md:h-[140px] w-[150px] h-[85px] lg:opacity-75 opacity-50 z-0">
       {playerState.source && (
         <YouTube
           className="w-full h-full"
