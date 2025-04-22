@@ -104,7 +104,7 @@ export default function Home() {
   };
 
   return (
-    <div className="grid justify-items-center p-8 gap-16 font-[family-name:var(--font-geist-sans)]">
+    <div className="justify-items-center xl:p-8 p-4 font-[family-name:var(--font-geist-sans)]">
       <main>
         {!library && <LoadingLibrary />}
         {library &&

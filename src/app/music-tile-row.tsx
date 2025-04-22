@@ -146,16 +146,8 @@ export const MusicTileRow = (props: Props) => {
   };
 
   return (
-    <motion.div
-      ref={rowRef}
-      className="flex"
-      style={{ width: '1000px' }}
-      onDrop={handleDragEnd}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      layout
-      layoutId={props.name}
-    >
+    <div className="flex">
+      {/* LABEL */}
       <div
         className="h-40 uppercase text-xl font-semibold text-center z-1 group flex justify-center items-center"
         style={{ writingMode: 'sideways-lr' }}
@@ -163,8 +155,8 @@ export const MusicTileRow = (props: Props) => {
         <span className="overflow-hidden text-nowrap max-h-8/10">{props.name}</span>
         <button
           className="inline z-20 w-6 h-6 mb-2 ml-1 rounded-full bg-black/50 hover:bg-black/70 hover:text-gray-400 
-                           flex items-center justify-center text-white text-sm
-                           cursor-pointer duration-300 transition-all opacity-0 group-hover:opacity-100 group-hover:-translate-y-1"
+                     flex items-center justify-center text-white text-sm
+                     cursor-pointer duration-300 transition-all opacity-0 group-hover:opacity-100 group-hover:-translate-y-1"
           onClick={(e) => {
             e.stopPropagation();
             if (props.tiles.length > 1) {
@@ -177,50 +169,62 @@ export const MusicTileRow = (props: Props) => {
           ✕
         </button>
       </div>
-      <div className="relative overflow-x-auto whitespace-nowrap py-2 ml-4">
-        <div className="flex flex-nowrap py-2">
-          {props.tiles.map((tile) => (
-            <MusicTile
-              key={tile.id}
-              music={tile}
-              category={props.name}
-              removeClicked={() => props.mediaRemoved(tile)}
-              className="flex-shrink-0 mr-4"
-            />
-          ))}
 
-          <div className="flex-shrink-0 transition-all" ref={addMediaRef}>
-            <AddMediaForm addMediaClicked={addMediaClicked} />
+      {/* TILES */}
+      <motion.div
+        ref={rowRef}
+        className="grid 3xl:w-330 2xl:w-285 xl:w-250 w-full"
+        onDrop={handleDragEnd}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        layout
+        layoutId={props.name}
+      >
+        <div className="py-2 ml-4 flex overflow-x-scroll">
+          <div className="flex py-2">
+            {props.tiles.map((tile) => (
+              <MusicTile
+                key={tile.id}
+                music={tile}
+                category={props.name}
+                removeClicked={() => props.mediaRemoved(tile)}
+                className="flex-shrink-0 mr-4"
+              />
+            ))}
+
+            <div className="flex-shrink-0 transition-all" ref={addMediaRef}>
+              <AddMediaForm addMediaClicked={addMediaClicked} />
+            </div>
           </div>
         </div>
-      </div>
 
-      <Modal visible={confirmDelete} onClose={() => setConfirmDelete(false)}>
-        <div className="text-xl font-semibold pt-2 pb-2">Are you sure?</div>
-        <div className="text-l pt-2 pb-2">
-          Deleting category &quot;{props.name}&quot; will also delete {props.tiles.length} video
-          {props.tiles.length > 1 ? 's' : ''}.
-        </div>
+        <Modal visible={confirmDelete} onClose={() => setConfirmDelete(false)}>
+          <div className="text-xl font-semibold pt-2 pb-2">Are you sure?</div>
+          <div className="text-l pt-2 pb-2">
+            Deleting category &quot;{props.name}&quot; will also delete {props.tiles.length} video
+            {props.tiles.length > 1 ? 's' : ''}.
+          </div>
 
-        <div className="float-right mt-4">
-          <button
-            onClick={() => setConfirmDelete(false)}
-            className="p-2 mr-2 bg-gray-500 hover:bg-gray-600 rounded-md cursor-pointer font-semibold min-w-24"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={() => {
-              setConfirmDelete(false);
-              props.removed();
-            }}
-            className="p-2 bg-indigo-500 hover:bg-indigo-600 rounded-md cursor-pointer font-semibold min-w-24"
-          >
-            Remove
-          </button>
-        </div>
-      </Modal>
-    </motion.div>
+          <div className="float-right mt-4">
+            <button
+              onClick={() => setConfirmDelete(false)}
+              className="p-2 mr-2 bg-gray-500 hover:bg-gray-600 rounded-md cursor-pointer font-semibold min-w-24"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => {
+                setConfirmDelete(false);
+                props.removed();
+              }}
+              className="p-2 bg-indigo-500 hover:bg-indigo-600 rounded-md cursor-pointer font-semibold min-w-24"
+            >
+              Remove
+            </button>
+          </div>
+        </Modal>
+      </motion.div>
+    </div>
   );
 };
 

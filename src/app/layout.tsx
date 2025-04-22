@@ -29,14 +29,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <div className="min-h-screen bg-gray-900 text-white px-4">
+        <div className="min-h-screen bg-gray-900 text-white">
           <div className="absolute z-0">
             <Image
               width="180"
               height={Math.floor((932 / 997) * 180)}
               src="gilliam.png"
               alt="Gilliam's Logo"
-              className="pt-6 drop-shadow"
+              className="pt-6 pl-4 drop-shadow 2xl:w-45 xl:w-30 w-0"
             />
           </div>
           <MediaProvider>
