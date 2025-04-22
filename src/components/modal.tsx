@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React, { useCallback, useEffect, useState } from "react";
-import { createPortal } from "react-dom";
+import React, { useCallback, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 interface Props {
   visible: boolean;
@@ -9,7 +9,7 @@ interface Props {
   onClose?: () => void;
 }
 
-const ROOT_ID = "modal-root";
+const ROOT_ID = 'modal-root';
 
 export const Modal = ({ visible, children, onClose }: Props) => {
   const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
@@ -18,8 +18,8 @@ export const Modal = ({ visible, children, onClose }: Props) => {
     let modalRoot = document.getElementById(ROOT_ID);
 
     if (!modalRoot) {
-      modalRoot = document.createElement("div");
-      modalRoot.setAttribute("id", ROOT_ID);
+      modalRoot = document.createElement('div');
+      modalRoot.setAttribute('id', ROOT_ID);
       document.body.appendChild(modalRoot);
     }
     setModalRoot(modalRoot);
@@ -33,17 +33,20 @@ export const Modal = ({ visible, children, onClose }: Props) => {
     }
   };
 
-  const keyDown = useCallback((e: KeyboardEvent) => {
-    if (e.code === 'Escape' && onClose) {
-      onClose();
-    }
-  }, [onClose]);
+  const keyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.code === 'Escape' && onClose) {
+        onClose();
+      }
+    },
+    [onClose],
+  );
 
   useEffect(() => {
     if (visible) {
-      document.addEventListener("keydown", keyDown, false);
+      document.addEventListener('keydown', keyDown, false);
     }
-    return () => document.removeEventListener("keydown", keyDown, false);
+    return () => document.removeEventListener('keydown', keyDown, false);
   }, [keyDown, visible]);
 
   return (

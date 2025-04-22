@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { Modal } from "./modal";
-import { Music } from "@/model/music";
-import { v4 as uuid4} from "uuid"
-import { ModalInputForm } from "./modal-input-form";
+import { useEffect, useState } from 'react';
+import { Modal } from './modal';
+import { Music } from '@/model/music';
+import { v4 as uuid4 } from 'uuid';
+import { ModalInputForm } from './modal-input-form';
 
 interface Value {
   url?: string;
@@ -32,12 +32,12 @@ export const AddMediaForm = ({ addMediaClicked }: Props) => {
       return; // Skip initial value
     }
 
-    fetchYoutubeInfo(value.url).then(({errors, value}) => {
+    fetchYoutubeInfo(value.url).then(({ errors, value }) => {
       if (errors !== undefined) {
-        setErrors(oldErrors => ({ ...oldErrors, ...errors}));
+        setErrors((oldErrors) => ({ ...oldErrors, ...errors }));
       } else {
-        setValue(oldValue => ({ ...oldValue, ...value}));
-        setErrors(oldErrors => ({ ...oldErrors, url: undefined }));
+        setValue((oldValue) => ({ ...oldValue, ...value }));
+        setErrors((oldErrors) => ({ ...oldErrors, url: undefined }));
       }
     });
   }, [value.url, setErrors, setValue]);
@@ -67,16 +67,22 @@ export const AddMediaForm = ({ addMediaClicked }: Props) => {
     setValue({});
     setSaveError(undefined);
     setLoading(false);
-  }
+  };
 
   const addClicked = (e: React.FormEvent) => {
-    e.stopPropagation(); 
+    e.stopPropagation();
     e.preventDefault();
-    const media = {image: value.image!, title: value.title!, subtitle: value.subtitle, videoId: value.videoId!, id: uuid4()};
+    const media = {
+      image: value.image!,
+      title: value.title!,
+      subtitle: value.subtitle,
+      videoId: value.videoId!,
+      id: uuid4(),
+    };
     setLoading(true);
     setSaveError(undefined);
 
-    addMediaClicked(media, error => {
+    addMediaClicked(media, (error) => {
       if (!error) {
         closeModal();
       } else {
@@ -99,7 +105,7 @@ export const AddMediaForm = ({ addMediaClicked }: Props) => {
       </div>
       <Modal visible={showAddMedia} onClose={closeModal}>
         <div className="text-xl font-semibold pt-2 pb-2">Add Youtube Media</div>
-        { saveError && <div className="mb-2 text-sm text-red-500">{saveError}</div> }
+        {saveError && <div className="mb-2 text-sm text-red-500">{saveError}</div>}
 
         <form onSubmit={addClicked}>
           <ModalInputForm
@@ -107,15 +113,13 @@ export const AddMediaForm = ({ addMediaClicked }: Props) => {
             setValue={(url) => setValue({ ...value, url })}
             value={value.url}
             placeholder="Enter YouTube URL*"
-            errorMessage={
-              errors?.url ? "Please enter a valid YouTube URL." : undefined
-            }
+            errorMessage={errors?.url ? 'Please enter a valid YouTube URL.' : undefined}
           />
           <ModalInputForm
             setValue={(title) => updateTitle(title)}
             value={value.title}
             placeholder="Title*"
-            errorMessage={errors?.title ? "Please add a valid Title." : undefined}
+            errorMessage={errors?.title ? 'Please add a valid Title.' : undefined}
           />
           <ModalInputForm
             setValue={(subtitle) => setValue((value) => ({ ...value, subtitle }))}
@@ -127,7 +131,7 @@ export const AddMediaForm = ({ addMediaClicked }: Props) => {
             <div className="w-full p-2 aspect-72/40">
               <div
                 className="w-full h-full bg-cover bg-center"
-                style={{backgroundImage: `url(${value.image})`}}
+                style={{ backgroundImage: `url(${value.image})` }}
               />
             </div>
           )}
@@ -135,8 +139,9 @@ export const AddMediaForm = ({ addMediaClicked }: Props) => {
           <button
             className="p-2 bg-indigo-500 hover:bg-indigo-600 rounded-md transition cursor-pointer font-semibold mt-4 min-w-24 float-right 
                        disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
-            disabled={!isValid || loading}>
-            { loading ? 'Adding..' : 'Add' }
+            disabled={!isValid || loading}
+          >
+            {loading ? 'Adding..' : 'Add'}
           </button>
         </form>
       </Modal>
@@ -144,27 +149,31 @@ export const AddMediaForm = ({ addMediaClicked }: Props) => {
   );
 };
 
-type YoutubeResponse = {errors?: {[key: string]: unknown}, value?: Partial<Value>};
+type YoutubeResponse = { errors?: { [key: string]: unknown }; value?: Partial<Value> };
 
 const fetchYoutubeInfo = async (url: string): Promise<YoutubeResponse> => {
-  const regexMatch = YOUTUBE_ID_REGEX.exec(url ?? "");
+  const regexMatch = YOUTUBE_ID_REGEX.exec(url ?? '');
   if (!regexMatch || regexMatch.length != 2) {
-    return { errors: {url: true} };
+    return { errors: { url: true } };
   }
 
   try {
     const ytId = regexMatch[1];
-    const response = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${ytId}`);
+    const response = await fetch(
+      `https://noembed.com/embed?url=https://www.youtube.com/watch?v=${ytId}`,
+    );
     const body = await response.json();
 
-    return { value: {
-      title: body.title,
-      image: body.thumbnail_url,
-      videoId: ytId,
-    } };
+    return {
+      value: {
+        title: body.title,
+        image: body.thumbnail_url,
+        videoId: ytId,
+      },
+    };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch(unused: unknown) {
-    return { errors: {url: undefined} };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (unused: unknown) {
+    return { errors: { url: undefined } };
   }
-}
+};

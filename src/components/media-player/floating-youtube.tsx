@@ -5,14 +5,14 @@ import YouTube, { YouTubeEvent, YouTubePlayer } from 'react-youtube';
 import { MediaState, useMedia } from './media-context';
 
 export const FloatingYoutube = () => {
-  const {state} = useMedia();
+  const { state } = useMedia();
   const [player, setPlayer] = useState<YouTubePlayer | undefined>();
-  const [playerState, setPlayerState] = useState<MediaState>({playing: false, volume: 100});
+  const [playerState, setPlayerState] = useState<MediaState>({ playing: false, volume: 100 });
 
   useEffect(() => {
     if (state.source !== playerState.source) {
       setPlayer(null);
-      setPlayerState(playerState => ({...playerState, source: state.source, playing: true}));
+      setPlayerState((playerState) => ({ ...playerState, source: state.source, playing: true }));
     } else {
       if (player) {
         try {
@@ -32,11 +32,15 @@ export const FloatingYoutube = () => {
           }
 
           if (changed) {
-            setPlayerState(playerState => ({...playerState, playing: state.playing, volume: state.volume}));
+            setPlayerState((playerState) => ({
+              ...playerState,
+              playing: state.playing,
+              volume: state.volume,
+            }));
           }
 
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch(e: unknown) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (e: unknown) {
           // Player not ready
         }
       }
@@ -47,18 +51,22 @@ export const FloatingYoutube = () => {
     setPlayer(event.target);
   };
 
-  return (<div className="absolute bottom-0 right-0 w-[355px] h-[200px]">
-          {playerState.source && <YouTube 
-              className="w-full h-full"
-              iframeClassName="w-full h-full"
-              videoId={playerState.source.videoId}
-              opts={{
-                playerVars: {
-                  autoplay: 1,
-                  loop: 1,
-                }
-              }}
-              onReady={onReady}
-            />}
-  </div>);
-}
+  return (
+    <div className="absolute bottom-0 right-0 w-[355px] h-[200px]">
+      {playerState.source && (
+        <YouTube
+          className="w-full h-full"
+          iframeClassName="w-full h-full"
+          videoId={playerState.source.videoId}
+          opts={{
+            playerVars: {
+              autoplay: 1,
+              loop: 1,
+            },
+          }}
+          onReady={onReady}
+        />
+      )}
+    </div>
+  );
+};

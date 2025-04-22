@@ -1,4 +1,4 @@
-import { MusicLibrary } from "@/model/library";
+import { MusicLibrary } from '@/model/library';
 
 export function loadLibrary(): MusicLibrary | null {
   if (typeof window === 'undefined') {
@@ -9,9 +9,8 @@ export function loadLibrary(): MusicLibrary | null {
     const loadedMedia = localStorage.getItem('media-library');
     if (loadedMedia) {
       return savedDataToLibrary(JSON.parse(loadedMedia));
-    }  
-
-  } catch(e: unknown) {
+    }
+  } catch (e: unknown) {
     console.log('Failed to load library from local storage', e);
   }
 
@@ -26,8 +25,7 @@ export function saveLibrary(library: MusicLibrary) {
   try {
     const save: SavedMusicLibraryV1 = { version: 1, data: library };
     localStorage.setItem('media-library', JSON.stringify(save));
-
-  } catch(e: unknown) {
+  } catch (e: unknown) {
     console.log('Failed to save library from local storage', e);
   }
 }
@@ -45,7 +43,7 @@ type SavedMusicLibrary = { version: number } & object;
 interface SavedMusicLibraryV1 {
   version: 1;
   data: {
-    category: string; 
+    category: string;
     music: {
       title: string;
       subtitle?: string;

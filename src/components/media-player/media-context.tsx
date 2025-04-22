@@ -1,15 +1,21 @@
 'use client';
 
-import { Music } from "@/model/music";
-import { createContext, useContext, useReducer, ReactNode } from "react";
+import { Music } from '@/model/music';
+import { createContext, useContext, useReducer, ReactNode } from 'react';
 
-const DEFAULT_STATE: MediaState = {playing: false, volume: 100};
+const DEFAULT_STATE: MediaState = { playing: false, volume: 100 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const MediaContext = createContext<{state: MediaState, dispatch: (action: MediaEvent) => void}>({state: DEFAULT_STATE, dispatch: _ => {}});
+const MediaContext = createContext<{ state: MediaState; dispatch: (action: MediaEvent) => void }>({
+  state: DEFAULT_STATE,
+  dispatch: (_) => {},
+});
 
 export enum MediaEventType {
-  PLAY, PAUSE, CHANGE_SOURCE, CHANGE_VOLUME,
+  PLAY,
+  PAUSE,
+  CHANGE_SOURCE,
+  CHANGE_VOLUME,
 }
 
 export interface MediaEvent {
@@ -23,9 +29,9 @@ export interface MediaState {
   source?: Music;
 }
 
-export const MediaProvider = ({children}: {children: ReactNode}) => {
+export const MediaProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer((state, action: MediaEvent) => {
-     switch (action.type) {
+    switch (action.type) {
       case MediaEventType.PLAY:
         return { ...state, playing: true };
       case MediaEventType.PAUSE:
@@ -37,15 +43,9 @@ export const MediaProvider = ({children}: {children: ReactNode}) => {
       default:
         return state;
     }
-
   }, DEFAULT_STATE);
 
-  return (
-    <MediaContext.Provider value={{state, dispatch}}>
-      {children}
-    </MediaContext.Provider>
-  )
-
-}
+  return <MediaContext.Provider value={{ state, dispatch }}>{children}</MediaContext.Provider>;
+};
 
 export const useMedia = () => useContext(MediaContext);
